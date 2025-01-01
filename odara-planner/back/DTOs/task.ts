@@ -16,7 +16,17 @@ export enum Status {
 // zod schema for Task model não deixa espaços em branco
 // o status vai ser uma string mas armazenado como um enum
 export const Task = z.object({
-    title: z.string().nonempty(),
-    description: z.string().nonempty(),
-    status: z.nativeEnum(Status),
+    title: z
+        .string()
+        .nonempty("Title must not be empty")
+        .min(3, "Title must be at least 3 characters long")
+        .max(50, "Title must be at most 50 characters long"),
+    description: z
+        .string()
+        .nonempty("Description must not be empty")
+        .min(3, "Description must be at least 3 characters long")
+        .max(500, "Description must be at most 500 characters long"),
+    status: z
+        .nativeEnum(Status)
+        .default(Status.TO_DO),
 });
