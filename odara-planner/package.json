@@ -4,16 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && next build",
+    "build": "prisma generate --schema=./prisma/schema.prisma && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
-    "clientEngineType": "binary",
-    "engines": {
-      "queryEngine": "libquery_engine-linux-arm64-openssl-3.0.x"
-    }
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",
