@@ -24,7 +24,7 @@ export function TaskForm({ }: TaskFormProps) {
       setDescription('')
       setStatus(TaskStatus.TO_DO)
     } catch (error) {
-      console.error('Erro ao criar tarefa:', error)
+      console.error('Erro ao criar tarefa', error)
     }
   }
 
