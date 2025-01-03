@@ -1,19 +1,46 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Status } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const user = await prisma.user.upsert({
-    where: { email: "test@test.com" },
-    update: {},
-    create: {
-      email: "test@test.com",
-      password: "123456",
-      name: "Test User",
+  // Array de tarefas exemplo
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const tarefasExemplo = [
+    {
+      title: "Desenvolver página inicial",
+      description: "Criar layout responsivo da página inicial",
+      status: Status.TO_DO,
     },
-  });
-  console.log({ user });
+    {
+      title: "Implementar autenticação",
+      description: "Adicionar sistema de login com JWT",
+      status: Status.IN_PROGRESS,
+    },
+    {
+      title: "Escrever documentação",
+      description: "Documentar APIs e componentes",
+      status: Status.DONE,
+    },
+    // ... mais 12 tarefas aqui
+  ];
+
+  // Criar 15 tarefas
+  for (let i = 0; i < 15; i++) {
+    const status = [Status.TO_DO, Status.IN_PROGRESS, Status.DONE][
+      Math.floor(Math.random() * 3)
+    ];
+    await prisma.task.create({
+      data: {
+        title: `Tarefa ${i + 1}`,
+        description: `Descrição da tarefa ${i + 1}`,
+        status: status,
+      },
+    });
+  }
+
+  console.log("Seed concluído: 15 tarefas foram criadas!");
 }
+
 main()
   .then(() => prisma.$disconnect())
   .catch(async (e) => {
