@@ -58,6 +58,11 @@ export default function TaskPanel() {
       });
     } catch (error) {
       console.error("Erro ao criar tarefa:", error);
+      toast({
+        title: "Erro",
+        description: "Erro ao adicionar tarefa.",
+        variant: "destructive",
+      });
     }
   };
 

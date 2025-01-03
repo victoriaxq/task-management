@@ -6,7 +6,7 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { TaskForm } from "./TaskForm";
-import { Task } from "./TaskPanel";
+import { Task } from "@/types/Task";
 
 type TaskSheetProps = {
   isOpen: boolean;
@@ -25,7 +25,7 @@ export function TaskSheet({ isOpen, onClose, onAddTask }: TaskSheetProps) {
           </SheetDescription>
         </SheetHeader>
         <div className="mt-6 px-1">
-          <TaskForm onAddTask={onAddTask} />
+          <TaskForm onAddTask={onAddTask} onClose={onClose} />
         </div>
       </SheetContent>
     </Sheet>
