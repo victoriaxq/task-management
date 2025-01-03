@@ -4,28 +4,28 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Task, TaskStatus } from '@/types/Task'
-import { taskService } from '@/services/api'
 
 type TaskFormProps = {
   onAddTask: (task: Omit<Task, 'id'>) => void
+  onClose: () => void
 }
 
-export function TaskForm({ }: TaskFormProps) {
+export function TaskForm({ onAddTask, onClose }: TaskFormProps) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState<TaskStatus>(TaskStatus.TO_DO)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      console.log({title, description, status})
-      await taskService.createTask({ title, description, status })
-      setTitle('')
-      setDescription('')
-      setStatus(TaskStatus.TO_DO)
-    } catch (error) {
-      console.error('Erro ao criar tarefa', error)
-    }
+    await onAddTask({
+      title,
+      description,
+      status,
+    })
+    setTitle('')
+    setDescription('')
+    setStatus(TaskStatus.TO_DO)
+    onClose()
   }
 
   return (
@@ -63,7 +63,12 @@ export function TaskForm({ }: TaskFormProps) {
           </SelectContent>
         </Select>
       </div>
-      <Button type="submit" className="w-full">Adicionar Tarefa</Button>
+      <div className="flex justify-end gap-2">
+        <Button type="button" variant="outline" onClick={onClose}>
+          Cancelar
+        </Button>
+        <Button type="submit">Adicionar Tarefa</Button>
+      </div>
     </form>
   )
 }
