@@ -5,7 +5,7 @@ Repositório destinado ao desenvolvimento de uma aplicação simples de gerencia
 
 ### 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/victoriaxq/task-management.git
 ```
 
 ### 2. Navigate into the project directory
